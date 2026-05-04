@@ -21,33 +21,35 @@ const Intro = () => {
             <Logo height={80} width={80} />
           </Center>
           <Center>
-            <Title order={2}>Welcome to Pingvin Share</Title>
+            <Title order={2}>Welcome to nebulos.net Share</Title>
           </Center>
           <Text>
-            If you enjoy Pingvin Share please ⭐️ it on{" "}
+            This is a fork of{" "}
             <Anchor
               target="_blank"
               href="https://github.com/stonith404/pingvin-share"
+              rel="noopener noreferrer"
             >
-              GitHub
-            </Anchor>{" "}
-            or{" "}
+              pingvin-share
+            </Anchor>
+            , maintained at{" "}
             <Anchor
               target="_blank"
-              href="https://github.com/sponsors/stonith404"
+              href="https://github.com/nebulos/share"
+              rel="noopener noreferrer"
             >
-              buy me a coffee
-            </Anchor>{" "}
-            if you want to support my work.
+              nebulos/share
+            </Anchor>
+            . The upstream project is community-developed; if you find it
+            useful, consider starring it.
           </Text>
-          <Text>Enough talked, have fun with Pingvin Share!</Text>
-          <Text mt="lg">How to you want to continue?</Text>
+          <Text mt="lg">How would you like to continue?</Text>
           <Stack>
             <Button href="/admin/config/general" component={Link}>
               Customize configuration
             </Button>
             <Button href="/" component={Link} variant="light">
-              Explore Pingvin Share
+              Explore the app
             </Button>
           </Stack>
         </Stack>

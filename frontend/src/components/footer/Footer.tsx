@@ -28,13 +28,23 @@ const Footer = () => {
       <SimpleGrid cols={isMobile ? 2 : 3} m={0}>
         {!isMobile && <div></div>}
         <Text size="xs" color="dimmed" align={isMobile ? "left" : "center"}>
-          Powered by{" "}
+          Built on{" "}
           <Anchor
             size="xs"
             href="https://github.com/stonith404/pingvin-share"
             target="_blank"
+            rel="noopener noreferrer"
           >
-            Pingvin Share
+            pingvin-share
+          </Anchor>
+          ; forked at{" "}
+          <Anchor
+            size="xs"
+            href="https://github.com/nebulos/share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            nebulos/share
           </Anchor>
         </Text>
         <div>

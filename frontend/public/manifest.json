@@ -1,7 +1,8 @@
 {
-  "name": "Pingvin Share",
-  "theme_color": "#46509e",
-  "background_color": "#ffffff",
+  "name": "nebulos.net Share",
+  "short_name": "Share",
+  "theme_color": "#0A0820",
+  "background_color": "#0A0820",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

@@ -19,7 +19,7 @@ export default {
   "home.description":
     "Do you really want to give your personal files in the hand of third parties like WeTransfer?",
   "home.bullet.a.name": "Self-Hosted",
-  "home.bullet.a.description": "Host Pingvin Share on your own machine.",
+  "home.bullet.a.description": "Host the app on your own machine.",
   "home.bullet.b.name": "Privacy",
   "home.bullet.b.description":
     "Your files are yours and will never be accessed by third parties.",
