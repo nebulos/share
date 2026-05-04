@@ -28,7 +28,7 @@ const Footer = () => {
       <SimpleGrid cols={isMobile ? 2 : 3} m={0}>
         {!isMobile && <div></div>}
         <Text size="xs" color="dimmed" align={isMobile ? "left" : "center"}>
-          Built on{" "}
+          Forked from{" "}
           <Anchor
             size="xs"
             href="https://github.com/stonith404/pingvin-share"
@@ -37,7 +37,7 @@ const Footer = () => {
           >
             pingvin-share
           </Anchor>
-          ; forked at{" "}
+          . Maintained at{" "}
           <Anchor
             size="xs"
             href="https://github.com/nebulos/share"
@@ -46,6 +46,7 @@ const Footer = () => {
           >
             nebulos/share
           </Anchor>
+          .
         </Text>
         <div>
           {config.get("legal.enabled") && (
