@@ -1,0 +1,42 @@
+/*
+ * Self-hosted webfonts for nebulos.net Share.
+ * Mirrors the marketing page font stack:
+ *   - Newsreader (italic 400, roman 500) for headings & display copy
+ *   - Geist (regular 400) for UI body text
+ *   - JetBrains Mono (regular 400) for share IDs and code-ish surfaces
+ *
+ * font-display: swap means text renders immediately in a fallback,
+ * then re-layouts when the webfont arrives.
+ */
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/Newsreader-Italic.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/fonts/Newsreader-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/Geist-Regular.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/fonts/JetBrainsMono-Regular.woff2) format('woff2');
+}

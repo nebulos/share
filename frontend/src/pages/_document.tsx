@@ -14,8 +14,26 @@ export default class _Document extends Document {
           <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
           <link rel="apple-touch-icon" href="/img/icons/icon-128x128.png" />
 
+          {/* Self-hosted webfonts. Preloads avoid first-paint FOIT for the
+              hero serif and the body sans. */}
+          <link
+            rel="preload"
+            href="/fonts/Newsreader-Italic.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Geist-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link rel="stylesheet" href="/fonts/fonts.css" />
+
           <meta name="robots" content="noindex" />
-          <meta name="theme-color" content="#46509e" />
+          <meta name="theme-color" content="#0A0820" />
         </Head>
         <body>
           <Main />
