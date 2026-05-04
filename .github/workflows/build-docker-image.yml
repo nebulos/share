@@ -1,53 +1,61 @@
 name: Build and Push Docker Image
 
+# Publishes the fork's container image to GitHub Container Registry (GHCR).
+# Triggers:
+#   - push to main         → pushes tag :latest and :main-<short-sha>
+#   - push of tag v*       → pushes :v1.13.0-nebulos-1 (or whatever the tag is)
+#   - workflow_dispatch    → manual trigger from the Actions UI
+#
+# Image is pulled by /opt/share/compose.yml on CT 205 via:
+#   image: ghcr.io/nebulos/share@sha256:<digest>
+#
+# We only build linux/amd64 (CT 205 is amd64). Drop QEMU/arm64 to keep
+# build minutes lean. No Docker Hub publish for the fork.
+
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
 
 jobs:
   build:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: checkout code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Docker metadata
+      - name: Derive image metadata (tags + labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ghcr.io/${{ github.repository }}
-            ${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}
           tags: |
-            type=semver,pattern={{version}},prefix=v
-            type=semver,pattern={{major}}.{{minor}},prefix=v
-            type=semver,pattern={{major}},prefix=v
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+            type=ref,event=branch
+            type=sha,prefix=,suffix=,format=short
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password:  ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

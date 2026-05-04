@@ -1,0 +1,26 @@
+name: Gitleaks (secret scan)
+
+# Scans every push and PR for accidental secrets. The fork is public, so a
+# leaked R2 key, JWT secret, or Discord OAuth client_secret would be a real
+# incident. This is the cheapest defense: run scan, fail the job if a hit.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
