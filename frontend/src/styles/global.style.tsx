@@ -2,27 +2,62 @@ import { Global } from "@mantine/core";
 
 /*
  * Global styles. Three jobs:
- *   1. Cosmic-indigo body background in dark mode (matches marketing page).
- *   2. Quiet `::selection` styling using our brand violet.
+ *   1. Cosmic body backdrop: a fixed starfield SVG behind all content,
+ *      with a slow drift animation that mirrors the marketing page.
+ *   2. ::selection styling using our brand violet.
  *   3. Markdown table prettification (kept from upstream, recoloured).
  *
- * We intentionally do NOT set body color here — Mantine's MantineProvider
- * handles text color via theme.colors.dark[0] (which we override to cream
- * in mantine.style.ts).
+ * Stacking strategy:
+ *   - html        → solid cosmic ink fallback (catches SVG load failures)
+ *   - body        → transparent so the starfield shows through
+ *   - body::before→ the starfield SVG, fixed-position, opacity 0.5
+ *   - #__next     → the React tree, z-index: 1, so cards/modals sit above
+ *
+ * pointerEvents: none on the backdrop is non-negotiable — without it, the
+ * starfield would intercept clicks on the dropzone underneath.
  */
 
 const GlobalStyle = () => {
   return (
     <Global
       styles={(theme) => ({
-        body: {
+        html: {
           backgroundColor:
             theme.colorScheme === "dark"
               ? theme.colors.dark[7]
               : theme.colors.gray[0],
+        },
+        body: {
+          backgroundColor: "transparent",
+          position: "relative",
+          minHeight: "100vh",
           fontFeatureSettings: "'ss01', 'cv11'",
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",
+        },
+        "body::before": {
+          content: '""',
+          position: "fixed",
+          inset: 0,
+          backgroundImage:
+            theme.colorScheme === "dark"
+              ? "url(/img/starfield.svg)"
+              : "none",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.5,
+          pointerEvents: "none",
+          zIndex: 0,
+          animation: "nebulos-drift 90s linear infinite",
+        },
+        "#__next": {
+          position: "relative",
+          zIndex: 1,
+        },
+        "@keyframes nebulos-drift": {
+          from: { transform: "translate(0, 0)" },
+          to: { transform: "translate(-40px, 20px)" },
         },
         "::selection": {
           backgroundColor: theme.colors.nebulos[5],
