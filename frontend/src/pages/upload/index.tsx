@@ -1,4 +1,4 @@
-import { Button, Group } from "@mantine/core";
+import { Box, Button, Group, Text, Title } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { cleanNotifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
@@ -199,9 +199,39 @@ const Upload = ({
     }
   }, [files]);
 
+  // Hero block above the dropzone on the primary /upload page only.
+  // Skipped on reverse-share recipient pages and in-share edit flow,
+  // both of which have their own surrounding context.
+  const showHero = !isReverseShare && !simplified;
+
   return (
     <>
       <Meta title={t("upload.title")} />
+      {showHero && (
+        <Box mb="xl" mt="md">
+          <Title
+            order={1}
+            sx={(theme) => ({
+              fontFamily: theme.headings.fontFamily,
+              fontStyle: "italic",
+              fontWeight: 500,
+              fontSize: "2.25rem",
+              lineHeight: 1.15,
+              letterSpacing: "-0.01em",
+              color: theme.colors.dark[0],
+            })}
+          >
+            Send something. Then <em>forget</em>.
+          </Title>
+          <Text
+            size="sm"
+            mt="xs"
+            sx={(theme) => ({ color: theme.colors.dark[2] })}
+          >
+            Up to 5 GB per share. We delete it on schedule.
+          </Text>
+        </Box>
+      )}
       <Group position="right" mb={20}>
         <Button
           loading={isUploading}

@@ -14,16 +14,40 @@ const useStyles = createStyles((theme) => ({
     marginBottom: 30,
   },
 
+  // Glassmorphic dropzone in dark mode: translucent indigo, backdrop blur,
+  // violet hairline. Falls back to subtle defaults in light mode.
   dropzone: {
     borderWidth: 1,
     paddingBottom: 50,
+    ...(theme.colorScheme === "dark"
+      ? {
+          backgroundColor: "rgba(70, 80, 158, 0.06)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          borderColor: theme.colors.nebulos[7],
+          "&:hover": {
+            backgroundColor: "rgba(124, 102, 220, 0.08)",
+            borderColor: theme.colors.nebulos[5],
+          },
+        }
+      : {}),
   },
 
+  // Violet cloud-upload icon in dark mode (was a desaturated grey).
   icon: {
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.dark[3]
+        ? theme.colors.nebulos[5]
         : theme.colors.gray[4],
+  },
+
+  // Title in italic Newsreader for the primary "Upload files" line — picks
+  // up theme.headings.fontFamily.
+  title: {
+    fontFamily: theme.headings.fontFamily,
+    fontStyle: "italic",
+    fontWeight: 500,
+    letterSpacing: "0.005em",
   },
 
   control: {
@@ -77,9 +101,14 @@ const Dropzone = ({
       >
         <div style={{ pointerEvents: "none" }}>
           <Group position="center">
-            <TbCloudUpload size={50} />
+            <TbCloudUpload size={50} className={classes.icon} />
           </Group>
-          <Text align="center" weight={700} size="lg" mt="xl">
+          <Text
+            align="center"
+            size="xl"
+            mt="xl"
+            className={classes.title}
+          >
             {title || <FormattedMessage id="upload.dropzone.title" />}
           </Text>
           <Text align="center" size="sm" mt="xs" color="dimmed">
