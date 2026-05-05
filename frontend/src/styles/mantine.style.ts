@@ -17,7 +17,11 @@ import { MantineThemeOverride } from "@mantine/core";
  */
 
 const theme: MantineThemeOverride = {
-  colorScheme: "dark",
+  // NOTE: do NOT set `colorScheme` here. _app.tsx spreads this object AFTER
+  // setting `colorScheme` from <ColorSchemeProvider>, which means anything
+  // we put here overrides the dynamic state and causes a hydration desync
+  // that crashes interactive pages (sign-in, admin). Default scheme is
+  // forced to "dark" via the useState initial value in _app.tsx instead.
 
   colors: {
     nebulos: [
@@ -60,11 +64,9 @@ const theme: MantineThemeOverride = {
   headings: {
     fontFamily: "'Newsreader', Charter, Georgia, 'Times New Roman', serif",
     fontWeight: 500,
-    sizes: {
-      h1: { fontSize: "2.25rem", lineHeight: "1.15" },
-      h2: { fontSize: "1.75rem", lineHeight: "1.2" },
-      h3: { fontSize: "1.375rem", lineHeight: "1.25" },
-    },
+    // sizes intentionally omitted: Mantine v6 expects numeric px values here,
+    // and string rem values can break heading rendering at runtime.
+    // Defaults are reasonable; we just override the family + weight.
   },
 
   defaultRadius: "md",

@@ -39,7 +39,10 @@ function App({ Component, pageProps }: AppProps) {
   const systemTheme = useColorScheme(pageProps.colorScheme);
   const router = useRouter();
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(systemTheme);
+  // Force dark as the default for nebulos.net Share. The marketing page is
+  // cosmic-dark, so the app defaults to dark to feel like one product. Users
+  // can still switch via the toggle in their account preferences.
+  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
 
   const [user, setUser] = useState<CurrentUser | null>(pageProps.user);
   const [route, setRoute] = useState<string>(pageProps.route);
