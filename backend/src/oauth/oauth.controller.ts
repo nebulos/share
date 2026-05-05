@@ -92,7 +92,11 @@ export class OAuthController {
           token.refreshToken,
           token.accessToken,
         );
-        response.redirect(this.config.get("general.appUrl"));
+        // Redirect straight to /upload after successful OAuth instead of
+        // bouncing through the marketing root. Skips one hop and avoids
+        // any race condition where the cookie is set but Caddy's
+        // cookie-aware routing on / hasn't picked it up yet.
+        response.redirect(this.config.get("general.appUrl") + "/upload");
       } else {
         response.redirect(
           this.config.get("general.appUrl") + `/auth/totp/${token.loginToken}`,

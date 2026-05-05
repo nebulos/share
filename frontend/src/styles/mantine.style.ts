@@ -51,6 +51,22 @@ const theme: MantineThemeOverride = {
       "#060414", // 8         (deeper, modals)
       "#02010A", // 9         (deepest)
     ],
+
+    // `brass` carries the marketing page's gold accent (#D2A55F / #FFD7A0).
+    // Used sparingly: link-hover state, the subtle radial glow on body::after,
+    // and any "completed/success" affordance we want to feel warm not violet.
+    brass: [
+      "#FFF6E1", // 0  warmest cream
+      "#FFEDC4", // 1
+      "#FFE0A8", // 2
+      "#FFD7A0", // 3  brass-hi (marketing page hover)
+      "#E8C080", // 4
+      "#D2A55F", // 5  brass    (marketing page accent)
+      "#B58944", // 6
+      "#8E6A33", // 7
+      "#6B4F26", // 8
+      "#483418", // 9  deepest
+    ],
   },
 
   primaryColor: "nebulos",
@@ -91,7 +107,9 @@ const theme: MantineThemeOverride = {
       styles: (theme) => ({
         root: {
           color: theme.colors.nebulos[5],
-          "&:hover": { color: theme.colors.nebulos[2] },
+          // Brass-hi on hover, mirroring the marketing page's atmospheric
+          // accent: `a:hover { color: var(--brass-hi) }` at share.nebulos.net/.
+          "&:hover": { color: theme.colors.brass[3] },
         },
       }),
     },

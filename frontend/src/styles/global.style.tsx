@@ -51,6 +51,22 @@ const GlobalStyle = () => {
           zIndex: 0,
           animation: "nebulos-drift 90s linear infinite",
         },
+        // Subtle gold radial glow in the upper-right, like a distant warm sun
+        // through the cosmic dust. Mirrors the marketing page's brass accents
+        // without competing with the violet primary. Stays at low opacity so
+        // it reads as atmosphere, not as a focal point.
+        "body::after": {
+          content: theme.colorScheme === "dark" ? '""' : "none",
+          position: "fixed",
+          top: "-20vh",
+          right: "-15vw",
+          width: "70vw",
+          height: "70vh",
+          background:
+            "radial-gradient(circle at center, rgba(210, 165, 95, 0.10) 0%, rgba(210, 165, 95, 0.04) 35%, transparent 70%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        },
         "#__next": {
           position: "relative",
           zIndex: 1,
