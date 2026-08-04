@@ -1,4 +1,23 @@
-> ## ⚠️ Project Archived
+> ## 🪐 nebulos.net fork
+>
+> This is the maintained fork of Pingvin Share that runs **[share.nebulos.net](https://share.nebulos.net)**.
+> Upstream is archived (see below); changes land here.
+>
+> It carries a brand theme, the "cosmic rebrand", which is **dark-only**. The app therefore defaults
+> the colour scheme to dark rather than following the OS. Light mode intentionally falls through to
+> stock Mantine styling.
+>
+> **Read [ADR 0019](https://github.com/nebulos/homelab/blob/main/docs/decisions/0019-share-fork-and-theme.md)
+> before touching the theme, the palette, or the colour-scheme default.** It records why the theme is
+> dark-only, and why overriding Mantine's built-in `dark` palette has light-mode side effects that
+> look perfectly correct at the call site. That trap cost an afternoon in August 2026.
+>
+> Deploys are **digest-pinned**: pushing to `main` builds `ghcr.io/nebulos/share` via GitHub Actions,
+> and `/opt/share/compose.yml` references an explicit `sha256:` digest, never a floating tag.
+
+---
+
+> ## ⚠️ Project Archived (upstream)
 >
 > After much consideration, I've chosen to focus my limited time and energy on my other project, [Pocket ID](https://github.com/pocket-id/pocket-id). As a solo developer, I've found it difficult to actively maintain multiple open source projects with the care and attention they deserve.
 >
