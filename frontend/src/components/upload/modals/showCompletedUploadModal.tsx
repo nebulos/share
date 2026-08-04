@@ -41,9 +41,12 @@ const Body = ({ share }: { share: CompletedShare }) => {
           size="sm"
           sx={(theme) => ({
             color:
+              // gray[7], not dark[4]: this fork overrides the `dark` palette
+              // with cosmic indigos, so upstream's neutral-grey assumption no
+              // longer holds in the light branch.
               theme.colorScheme === "dark"
                 ? theme.colors.gray[3]
-                : theme.colors.dark[4],
+                : theme.colors.gray[7],
           })}
         >
           {t("upload.modal.completed.notified-reverse-share-creator")}

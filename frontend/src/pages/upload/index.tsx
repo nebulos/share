@@ -218,7 +218,12 @@ const Upload = ({
               fontSize: "2.25rem",
               lineHeight: 1.15,
               letterSpacing: "-0.01em",
-              color: theme.colors.dark[0],
+              // Must branch: `dark` is our cosmic indigo ramp, so dark[0] is
+              // cream. On a light background that is 1.05:1 and invisible.
+              color:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[0]
+                  : theme.colors.gray[9],
             })}
           >
             Send something. Then <em>forget</em>.
@@ -226,7 +231,12 @@ const Upload = ({
           <Text
             size="sm"
             mt="xs"
-            sx={(theme) => ({ color: theme.colors.dark[2] })}
+            sx={(theme) => ({
+              color:
+                theme.colorScheme === "dark"
+                  ? theme.colors.dark[2]
+                  : theme.colors.gray[7],
+            })}
           >
             Up to 5 GB per share. We delete it on schedule.
           </Text>

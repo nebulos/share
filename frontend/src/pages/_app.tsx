@@ -83,8 +83,8 @@ function App({ Component, pageProps }: AppProps) {
   }, [systemTheme]);
 
   const toggleColorScheme = (value: ColorScheme) => {
-    setColorScheme(value ?? "light");
-    setCookie("mantine-color-scheme", value ?? "light", {
+    setColorScheme(value ?? "dark");
+    setCookie("mantine-color-scheme", value ?? "dark", {
       sameSite: "lax",
     });
   };
@@ -174,8 +174,11 @@ App.getInitialProps = async ({ ctx }: { ctx: GetServerSidePropsContext }) => {
     language?: string;
   } = {
     route: ctx.resolvedUrl,
+    // Fall back to dark, matching the app default. Falling back to light made
+    // the server render disagree with the client and produced a starfield
+    // flash before the page snapped to white.
     colorScheme:
-      (getCookie("mantine-color-scheme", ctx) as ColorScheme) ?? "light",
+      (getCookie("mantine-color-scheme", ctx) as ColorScheme) ?? "dark",
   };
 
   if (ctx.req) {

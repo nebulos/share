@@ -1,7 +1,12 @@
 const defaultPreferences = [
   {
+    // Dark, not "system". The cosmic theme is only implemented for the dark
+    // scheme, so following a light OS drops users into stock Mantine styling
+    // that does not look like the rest of nebulos.net. This is what _app.tsx
+    // already claimed to do; the "system" default silently defeated it.
+    // An explicit user choice (including "system") is still stored and wins.
     key: "colorScheme",
-    value: "system",
+    value: "dark",
   },
   {
     key: "locale",

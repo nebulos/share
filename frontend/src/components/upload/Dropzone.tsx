@@ -24,10 +24,13 @@ const useStyles = createStyles((theme) => ({
           backgroundColor: "rgba(70, 80, 158, 0.06)",
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
-          borderColor: theme.colors.nebulos[7],
+          // nebulos[7] was only 1.76:1 against the ink background, under the
+          // 3:1 WCAG 1.4.11 floor for UI component boundaries. nebulos[5] is
+          // 4.49:1 at rest, nebulos[3] is 7.95:1 on hover.
+          borderColor: theme.colors.nebulos[5],
           "&:hover": {
             backgroundColor: "rgba(124, 102, 220, 0.08)",
-            borderColor: theme.colors.nebulos[5],
+            borderColor: theme.colors.nebulos[3],
           },
         }
       : {}),
@@ -103,12 +106,7 @@ const Dropzone = ({
           <Group position="center">
             <TbCloudUpload size={50} className={classes.icon} />
           </Group>
-          <Text
-            align="center"
-            size="xl"
-            mt="xl"
-            className={classes.title}
-          >
+          <Text align="center" size="xl" mt="xl" className={classes.title}>
             {title || <FormattedMessage id="upload.dropzone.title" />}
           </Text>
           <Text align="center" size="sm" mt="xs" color="dimmed">
